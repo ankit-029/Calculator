@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+#calculator {
+  background-color: slategray;
+}
+
+button {
+  padding: 16px 20px;
+  border-radius: 50%;
+  border: none;
+}
+
+#screen-container {
+  background-color: darkorange;
+  height: 125px;
+  width: 100%;
+}
