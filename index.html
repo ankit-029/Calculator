@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="calculator.css" />
+    <style src="calculator.js" defer></style>
+  </head>
+
+  <body>
+    <div id="calculator">
+      <div id="screen-container">
+        <div id="screen"></div>
+      </div>
+
+      <div id="keypad">
+        <div style="display: flex; margin-top: 15px; gap: 9px">
+          <button class="input-button">1</button>
+          <button class="input-button">2</button>
+          <button class="input-button">3</button>
+          <button class="input-button">+</button>
+        </div>
+
+        <div style="display: flex; margin-top: 15px; gap: 9px">
+          <button class="input-button">4</button>
+          <button class="input-button">5</button>
+          <button class="input-button">6</button>
+          <button class="input-button" id="minus">-</button>
+        </div>
+
+        <div style="display: flex; margin-top: 15px; gap: 9px">
+          <button class="input-button">7</button>
+          <button class="input-button">8</button>
+          <button class="input-button">9</button>
+          <button class="input-button">*</button>
+        </div>
+
+        <div style="display: flex; margin-top: 15px; gap: 9px">
+          <button class="input-button">0</button>
+          <button class="input-button" id="dot">.</button>
+          <button onclick="calculateExpression()">=</button>
+          <button class="input-button">/</button>
+        </div>
+        <button id="clear" onclick="allClear()">AC</button>
+        <button id="backspace" onclick="backspace()">⌫</button>
+
+        <script src="calculator.js"></script>
+      </div>
+    </div>
+  </body>
+</html>
