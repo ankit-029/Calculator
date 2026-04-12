@@ -21,7 +21,7 @@ body {
 }
 
 #screen-container {
-  height: 15vh;
+  height: 7vh;
   width: 100%;
 
   display: flex;
@@ -37,6 +37,15 @@ body {
   font-size: 30px;
   border-radius: 5px;
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.75);
+  padding: 5px 10px;
+
+  /* Add this to keep padding inside the 100% width */
+  box-sizing: border-box;
+
+  /* NEW: The Sliding Window Magic */
+  white-space: nowrap; /* Prevents text from wrapping to a new line */
+  overflow-x: auto; /* Allows horizontal scrolling */
+  scrollbar-width: none; /* Hides the scrollbar in Firefox */
 }
 
 button {
@@ -49,10 +58,10 @@ button {
 
 button:hover {
   transform: translateY(-3px);
+  background-color: cyan;
 }
 
 button:active {
-  background-color: cyan;
   transform: translateY(0px);
 }
 
@@ -71,4 +80,17 @@ button:active {
 
 #clear {
   margin-right: 15px;
+}
+
+.operators:hover {
+  background-color: coral;
+}
+
+#clear:hover,
+#backspace:hover {
+  background-color: red;
+}
+
+#equal:hover {
+  background-color: lawngreen;
 }

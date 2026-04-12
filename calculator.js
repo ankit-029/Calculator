@@ -4,6 +4,8 @@ inputButton.forEach((button) => {
     // take input and update it to screen.
     const output = document.querySelector("#screen");
     output.innerText += event.target.innerText;
+    // Automatically scroll to the rightmost edge of the text
+    output.scrollLeft = output.scrollWidth;
   });
 });
 
@@ -35,6 +37,7 @@ operatorInput.forEach((button) => {
         return;
       }
       input.innerText = String(result) + operator;
+      input.scrollLeft = input.scrollWidth;
     }
   });
 });
@@ -43,7 +46,7 @@ function operation(num1, num2, operator) {
   const op = {
     "+": (a, b) => a + b,
     "-": (a, b) => a - b,
-    "*": (a, b) => a * b,
+    "×": (a, b) => a * b,
     "/": (a, b) => a / b,
   };
 
@@ -58,7 +61,7 @@ backspace.addEventListener("click", () => {
   if (
     (lastChar === "+") |
     (lastChar === "-") |
-    (lastChar === "*") |
+    (lastChar === "×") |
     (lastChar === "/")
   )
     flag = 0;
