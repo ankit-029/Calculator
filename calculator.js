@@ -1,15 +1,9 @@
 const inputButton = document.querySelectorAll(".input-button");
 inputButton.forEach((button) => {
   button.addEventListener("click", (event) => {
-    if (!flag) {
-      firstStr += event.target.innerText;
-      const output = document.querySelector("#screen");
-      output.innerText = firstStr;
-    } else {
-      secondStr += event.target.innerText;
-      const output = document.querySelector("#screen");
-      output.innerText += event.target.innerText;
-    }
+    // take input and update it to screen.
+    const output = document.querySelector("#screen");
+    output.innerText += event.target.innerText;
   });
 });
 
@@ -17,38 +11,32 @@ const operatorInput = document.querySelectorAll(".operators");
 operatorInput.forEach((button) => {
   button.addEventListener("click", (event) => {
     if (!flag) {
+      //If its first operator, write it to screen and store it.
       operator = event.target.innerText;
-      flag = 1;
+      if (operator === "=") return;
+      flag = 1; //Change the flag to indicate fisrt operator.
       const output = document.querySelector("#screen");
       output.innerText += operator;
     } else {
       const operator2 = operator;
       operator = event.target.innerText;
-      const result = operation(Number(firstStr), Number(secondStr), operator2);
-      const formattedResult = result.toFixed(3);
-      const output = document.querySelector("#screen");
 
-      if (Number.isInteger(result)) output.innerText = result + operator;
-      else output.innerText = formattedResult + operator;
-      firstStr = String(result);
-      secondStr = "";
+      const input = document.querySelector("#screen");
+      let expression = input.innerText;
+      let idx = expression.indexOf(operator2); //Index of the operator.
+      let firstStr = expression.slice(0, idx),
+        secondStr = expression.slice(idx + 1, expression.length);
+
+      const result = operation(Number(firstStr), Number(secondStr), operator2);
+      if (operator === "=") {
+        input.innerText = String(result);
+        flag = 0;
+        operator = "";
+        return;
+      }
+      input.innerText = String(result) + operator;
     }
   });
-});
-
-const equal = document.querySelector("#equal");
-equal.addEventListener("click", () => {
-  if (operator != "") {
-    const result = operation(Number(firstStr), Number(secondStr), operator);
-    const formattedResult = result.toFixed(3);
-    const output = document.querySelector("#screen");
-
-    if (Number.isInteger(result)) output.innerText = result;
-    else output.innerText = formattedResult;
-    firstStr = String(result);
-    secondStr = "";
-    flag = 0;
-  }
 });
 
 function operation(num1, num2, operator) {
@@ -62,9 +50,27 @@ function operation(num1, num2, operator) {
   return op[operator](num1, num2);
 }
 
-let firstNum,
-  secondNum,
-  firstStr = "",
-  secondStr = "",
-  flag = 0,
+const backspace = document.querySelector("#backspace");
+backspace.addEventListener("click", () => {
+  const inputExpression = document.querySelector("#screen");
+  let s = inputExpression.innerText;
+  let lastChar = s.at(-1);
+  if (
+    (lastChar === "+") |
+    (lastChar === "-") |
+    (lastChar === "*") |
+    (lastChar === "/")
+  )
+    flag = 0;
+  inputExpression.innerText = s.slice(0, -1);
+});
+
+const allClear = document.querySelector("#clear");
+allClear.addEventListener("click", () => {
+  const input = document.querySelector("#screen");
+  input.innerText = "";
+  flag = 0;
+});
+
+let flag = 0,
   operator = "";
