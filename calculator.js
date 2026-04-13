@@ -15,21 +15,42 @@ operatorInput.forEach((button) => {
     if (!flag) {
       //If its first operator, write it to screen and store it.
       operator = event.target.innerText;
-      if (operator === "=") return;
-      flag = 1; //Change the flag to indicate fisrt operator.
       const output = document.querySelector("#screen");
+
+      if ((operator === "=") | ((output.innerText === "") & (operator !== "-")))
+        return;
+      else if ((output.innerText === "") & (operator === "-")) {
+        output.innerText += operator;
+        return;
+      }
+      if ((output.innerText === "-") & (operator !== "+")) return;
+      else if ((output.innerText === "-") & (operator === "+")) {
+        output.innerText = "";
+        return;
+      }
+
+      flag = 1; //Change the flag to indicate fisrt operator.
       output.innerText += operator;
     } else {
-      const operator2 = operator;
-      operator = event.target.innerText;
-
+      let prevOperator = operator;
       const input = document.querySelector("#screen");
       let expression = input.innerText;
-      let idx = expression.indexOf(operator2); //Index of the operator.
+      operator = event.target.innerText;
+      if (expression.at(-1) === prevOperator) {
+        input.innerText = expression.slice(0, -1);
+        input.innerText += operator;
+        return;
+      }
+
+      let idx = expression.indexOf(prevOperator); //Index of the operator.
       let firstStr = expression.slice(0, idx),
         secondStr = expression.slice(idx + 1, expression.length);
 
-      const result = operation(Number(firstStr), Number(secondStr), operator2);
+      const result = operation(
+        Number(firstStr),
+        Number(secondStr),
+        prevOperator,
+      );
       if (operator === "=") {
         input.innerText = String(result);
         flag = 0;
